@@ -111,7 +111,11 @@ int main(int argc, char *argv[])
   ros::Rate loop_rate(10);
 
   image_transport::ImageTransport it(n);
+<<<<<<< HEAD
   image_transport::Subscriber sub1 = it.subscribe("/hardware_camera/cam_lifecam/image_raw", 1, imageCallback);
+=======
+  image_transport::Subscriber sub1 = it.subscribe("/front_camera/image_raw", 1, imageCallback);
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
   image_transport::Publisher pub1 = it.advertise("/first_picture", 1);
   image_transport::Publisher pub2 = it.advertise("/second_picture", 1);
   image_transport::Publisher pub3 = it.advertise("/third_picture", 1);
@@ -133,7 +137,10 @@ int main(int argc, char *argv[])
 
   while (ros::ok())
   {
+<<<<<<< HEAD
     double start = ros::Time::now().toSec();
+=======
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
     // std_msgs::Float64MultiArray array;
     geometry_msgs::PointStamped point_coord;
     loop_rate.sleep();
@@ -166,12 +173,20 @@ int main(int argc, char *argv[])
     // convert back to RGB
     cv::cvtColor(lab_image, image_clahe, CV_Lab2BGR);
     
+<<<<<<< HEAD
     for (int i=0; i < 4; i++)
+=======
+    for (int i=0; i < 6; i++)
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
     {
       bilateralFilter(image_clahe, dstx, 6, 8, 8);
       bilateralFilter(dstx, image_clahe, 6, 8, 8);
     }
     
+<<<<<<< HEAD
+=======
+    image_clahe.copyTo(balanced_image1);
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
     balance_white(image_clahe);
     
     for (int i=0; i < 2; i++)
@@ -186,11 +201,20 @@ int main(int argc, char *argv[])
     cv::dilate(thresholded, thresholded, getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(5, 5)));
     cv::dilate(thresholded, thresholded, getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(3, 3)));
 
+<<<<<<< HEAD
     sensor_msgs::ImagePtr msg2 = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image_clahe).toImageMsg();
+=======
+    sensor_msgs::ImagePtr msg2 = cv_bridge::CvImage(std_msgs::Header(), "bgr8", balanced_image1).toImageMsg();
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
     sensor_msgs::ImagePtr msg3 = cv_bridge::CvImage(std_msgs::Header(), "mono8", thresholded).toImageMsg();
 
     pub2.publish(msg2);
     pub3.publish(msg3);
+<<<<<<< HEAD
+=======
+    
+    std::cout << frame.cols << " " << frame.rows << std::endl;
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
 
     if (1)
     {
@@ -205,7 +229,11 @@ int main(int argc, char *argv[])
       {
         int x_cord = center_ideal[0].x - 320;
         int y_cord = 240 - center_ideal[0].y;
+<<<<<<< HEAD
         if (x_cord < -300)
+=======
+        if (x_cord < -290)
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
         {
           point_coord.point.x = -2;
           point_coord.point.y = -2;
@@ -213,7 +241,11 @@ int main(int argc, char *argv[])
           std::cerr << "BUOY on the left edge of the screen." << std::endl;
           pub.publish(point_coord);
         }
+<<<<<<< HEAD
         else if (x_cord > 300)
+=======
+        else if (x_cord > 290)
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
         {
           point_coord.point.x = -1;
           point_coord.point.y = -1;
@@ -259,7 +291,11 @@ int main(int argc, char *argv[])
         if ((a > second_largest_area) && (a != largest_area))
         {
           second_largest_area = a;
+<<<<<<< HEAD
           second_largest_contour_index = i;          
+=======
+          second_largest_contour_index = i;
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
         }
       }
 
@@ -284,7 +320,11 @@ int main(int argc, char *argv[])
       else {
         center.x = temp_center_2.x;
         center.y = temp_center_2.y;
+<<<<<<< HEAD
         radius = temp_radius_2;        
+=======
+        radius = temp_radius_2;
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
       }
 
       cv::Point2f pt;
@@ -321,6 +361,7 @@ int main(int argc, char *argv[])
       circle(circles, center_ideal[0], r[0], cv::Scalar(0, 250, 0), 1, 8, 0);  // minenclosing circle
       circle(circles, center_ideal[0], 4, cv::Scalar(0, 250, 0), -1, 8, 0);    // center made on the screen
       circle(circles, pt, 4, cv::Scalar(250, 0, 0), -1, 8, 0);             // center screen
+<<<<<<< HEAD
 
       sensor_msgs::ImagePtr msg1 = cv_bridge::CvImage(std_msgs::Header(), "bgr8", circles).toImageMsg();
       pub1.publish(msg1);
@@ -328,6 +369,15 @@ int main(int argc, char *argv[])
       int net_x_cord = center_ideal[0].x - 320;
       int net_y_cord = 240 - center_ideal[0].y;
       if (net_x_cord > 300)
+=======
+
+      sensor_msgs::ImagePtr msg1 = cv_bridge::CvImage(std_msgs::Header(), "bgr8", circles).toImageMsg();
+      pub1.publish(msg1);
+
+      int net_x_cord = center_ideal[0].x - 320;
+      int net_y_cord = 240 - center_ideal[0].y;
+      if (net_x_cord > 290)
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
       {
         point_coord.point.x = -1;
         point_coord.point.y = -1;
@@ -335,7 +385,11 @@ int main(int argc, char *argv[])
         std::cerr << "BUOY on the right edge of the screen." << std::endl;
         pub.publish(point_coord);
       }
+<<<<<<< HEAD
       else if (net_x_cord < -300)
+=======
+      else if (net_x_cord < -290)
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
       {
         point_coord.point.x = -2;
         point_coord.point.y = -2;

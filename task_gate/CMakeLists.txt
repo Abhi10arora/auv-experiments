@@ -8,10 +8,17 @@ project(task_gate)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+<<<<<<< HEAD
   geometry_msgs
   roscpp
   rospy
   std_msgs
+=======
+  roscpp
+  rospy
+  std_msgs
+  geometry_msgs
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
 )
 
 ## System dependencies are found with CMake's conventions
@@ -71,7 +78,11 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
+<<<<<<< HEAD
 #   geometry_msgs#   std_msgs
+=======
+#   std_msgs
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
 # )
 
 ################################################
@@ -105,8 +116,13 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
+<<<<<<< HEAD
 #  LIBRARIES task_gate
 #  CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs
+=======
+#  LIBRARIES task_buoy
+#  CATKIN_DEPENDS roscpp rospy std_msgs
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
 #  DEPENDS system_lib
 )
 
@@ -119,6 +135,7 @@ catkin_package(
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
+<<<<<<< HEAD
   ../task_buoy/include
 )
 
@@ -127,6 +144,14 @@ include_directories(
 #   src/${PROJECT_NAME}/task_gate.cpp
 # )
 
+=======
+  include/
+)
+
+## Declare a C++ library
+add_library(errorToPWMGate SHARED src/errorToPWM.cpp include/errorToPWM.h)
+target_link_libraries(errorToPWMGate ${catkin_LIBRARIES})
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
@@ -136,8 +161,12 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(task_gate src/task_gate.cpp)
+<<<<<<< HEAD
 target_link_libraries(task_gate errorToPWM ${catkin_LIBRARIES})
 
+=======
+target_link_libraries(task_gate errorToPWMGate ${catkin_LIBRARIES})
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -193,7 +222,11 @@ target_link_libraries(task_gate errorToPWM ${catkin_LIBRARIES})
 #############
 
 ## Add gtest based cpp test target and link libraries
+<<<<<<< HEAD
 # catkin_add_gtest(${PROJECT_NAME}-test test/test_task_gate.cpp)
+=======
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_task_buoy.cpp)
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

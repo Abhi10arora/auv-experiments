@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(task_line)
+project(task_torpedo)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -8,10 +8,10 @@ project(task_line)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  geometry_msgs
   roscpp
   rospy
   std_msgs
+  geometry_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -71,7 +71,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   geometry_msgs#   std_msgs
+#   std_msgs
 # )
 
 ################################################
@@ -105,8 +105,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES task_line
-#  CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs
+#  LIBRARIES task_buoy
+#  CATKIN_DEPENDS roscpp rospy std_msgs
 #  DEPENDS system_lib
 )
 
@@ -123,9 +123,8 @@ include_directories(
 )
 
 ## Declare a C++ library
-add_library(errorToPWMLine SHARED src/errorToPWM.cpp include/errorToPWM.h)
-target_link_libraries(errorToPWMLine ${catkin_LIBRARIES})
-
+add_library(errorToPWMTorpedo SHARED src/errorToPWM.cpp include/errorToPWM.h)
+target_link_libraries(errorToPWMTorpedo ${catkin_LIBRARIES})
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
@@ -134,10 +133,8 @@ target_link_libraries(errorToPWMLine ${catkin_LIBRARIES})
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-
-add_executable(task_line src/main.cpp)
-target_link_libraries(task_line errorToPWMLine ${catkin_LIBRARIES})
-
+add_executable(task_torpedo src/main.cpp)
+target_link_libraries(task_torpedo errorToPWMTorpedo ${catkin_LIBRARIES})
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -193,7 +190,7 @@ target_link_libraries(task_line errorToPWMLine ${catkin_LIBRARIES})
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_task_line.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_task_buoy.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

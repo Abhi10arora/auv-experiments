@@ -35,7 +35,11 @@ void gateDataCallback(const geometry_msgs::PointStampedPtr &_msg) {
         // z_coord.setReference(0);
         count_gate++;
     }
+<<<<<<< HEAD
     if (_msg->point.x <= threshold_distance && count_gate == 1) {
+=======
+    if (_msg->point.y <= threshold_distance && count_gate == 1) {
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
         move_forward_signal = true;
         move_forward_start = ros::Time::now().toSec();
         count_gate++;
@@ -92,16 +96,30 @@ void imuDataCallback(const std_msgs::Float64Ptr &_msg) {
 }
 
 void gateDetectionSwitch(const std_msgs::BoolPtr &_msg) {
+<<<<<<< HEAD
     stop_signal = true;
     ROS_INFO("STOP SIGNAL RECEIVED!!!!");
+=======
+    
+    if (_msg->data == true){
+         stop_signal = true;
+        ROS_INFO("STOP SIGNAL RECEIVED!!!!");
+    }
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
 }
 
 int main(int argc, char **argv) {
     ros::init(argc, argv, "task_gate");
     ros::NodeHandle nh;
+<<<<<<< HEAD
     ros::Subscriber gateDataListener = nh.subscribe("/threshold/center_coordinates", 1000, &gateDataCallback);
     ros::Subscriber imuDataListener = nh.subscribe("/varun/sensors/imu/yaw", 1000, &imuDataCallback);
     ros::Subscriber gateStatusListener = nh.subscribe("/gate/status", 1000, &gateDetectionSwitch);
+=======
+    ros::Subscriber gateDataListener = nh.subscribe("/gate_task/front/gate_coordinates", 1000, &gateDataCallback);
+    ros::Subscriber imuDataListener = nh.subscribe("/varun/sensors/imu/yaw", 1000, &imuDataCallback);
+    ros::Subscriber gateStatusListener = nh.subscribe("/gate_task/done", 1000, &gateDetectionSwitch);
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
 
     ros::Publisher frontSidewardPublisher = nh.advertise<std_msgs::Int32>("/pwm/sidewardFront", 1000);
     ros::Publisher backSidewardPublisher = nh.advertise<std_msgs::Int32>("/pwm/sidewardBack", 1000);
@@ -125,13 +143,26 @@ int main(int argc, char **argv) {
     move_forward_duration = 6;
     move_backward_duration = 10;
 
+<<<<<<< HEAD
     threshold_distance = 0;
+=======
+    threshold_distance = -320;
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
 
     ros::Rate loop_rate(50);
 
     while(ros::ok()) {
         pwm_sideward_front.data = y_coord.getPWM() + angle.getPWM();
         pwm_sideward_back.data = y_coord.getPWM() - angle.getPWM();
+<<<<<<< HEAD
+=======
+        if(count_gate == 1)
+
+        {
+            pwm_forward_left.data = 150;
+            pwm_forward_right.data = 150;
+        }
+>>>>>>> 9480f401fdb826a126f80e94bccd59e1cff7639c
 
         if (move_forward_signal) {
             pwm_forward_left.data = 150;

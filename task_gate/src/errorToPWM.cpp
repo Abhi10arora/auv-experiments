@@ -11,7 +11,7 @@ ErrorDescriptor::ErrorDescriptor(std::string _name): p_(0), i_(0), d_(0),
     present_time_stamp_(0)
 {   
     this->name_ = _name;
-    std::cout << this->name_ << " type ErrorDecriptor is constructed." << std::endl;
+    std::cout << this->name_ << "type ErrorDecriptor is constructed." << std::endl;
 }
 
 ErrorDescriptor::~ErrorDescriptor() {}
@@ -101,7 +101,6 @@ void ErrorDescriptor::errorToPWM(double _current_value) {
 
 void ErrorDescriptor::turningOutputPWMMapping(float output) // to keep PWM values within a limit
 {
-    //std::cout << "pwm mapping" << std::endl;
     float maxOutput = 1000, minOutput = -maxOutput;
     float scale = 255 / maxOutput;
     if (output > maxOutput)
@@ -115,8 +114,6 @@ void ErrorDescriptor::turningOutputPWMMapping(float output) // to keep PWM value
     if (output_pwm < -255)
         output_pwm = -255;
     this->pwm_ = output_pwm;
-
-    std::cout << "pwm mapping: " << this->pwm_ << std::endl;
 }
 
 int ErrorDescriptor::getPWM() {
